@@ -2,7 +2,7 @@ from typing import Dict, List
 from flask import Flask, request, make_response
 
 from detectors.detector import IDetector
-from notifiers.notifier import INotifier
+from notifiers.notifier import INotifier, Notification
 
 
 class GithubDetectionServer(Flask):
@@ -15,12 +15,10 @@ class GithubDetectionServer(Flask):
     def _handle_webhook(self):
         event_type = request.headers["X-GitHub-Event"]
         event_data = request.json
-        print(event_type, event_data)
         for detector in self._event_to_detector.get(event_type, []):
-            alert = detector.detect(event_data)
-            if alert:
-                print(alert)
-                self._notifier.notify(f"event of type {event_type} was detected as suspicious, because {alert}")
+            suspect_reason = detector.detect(event_data)
+            if suspect_reason:
+                self._notifier.notify(Notification(event_type, suspect_reason))
 
         response = make_response('finished handling webhook', 200)
         return response

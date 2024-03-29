@@ -1,6 +1,8 @@
-from notifiers.notifier import INotifier
+from notifiers.notifier import INotifier, Notification
 
 
 class ConsoleNotifier(INotifier):
-    def notify(self, alert: str):
-        print(alert)
+    def notify(self, notification: Notification):
+        print(f"suspicious behavior was found.\n"
+              f"suspicious event type: {notification.event_type}"
+              f"suspect reason: {notification.suspect_reason}")
