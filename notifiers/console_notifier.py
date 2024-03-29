@@ -7,5 +7,5 @@ class ConsoleNotifier(INotifier):
     """
     def notify(self, notification: Notification):
         print(f"suspicious behavior was found.\n"
-              f"suspicious event type: {notification.event_type}"
+              f"suspicious event type: {notification.event_type}\n"
               f"suspect reason: {notification.suspect_reason}")
