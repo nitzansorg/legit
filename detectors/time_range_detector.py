@@ -15,7 +15,7 @@ class TimeRangeDetector(IDetector):
     def detect(self, event_data: Dict) -> Optional[str]:
         time = event_data["repository"]["updated_at"]
         if _is_time_in_range(time, self._suspicious_start_time, self._suspicious_end_time):
-            return f"the event time {time} was in range {self._suspicious_start_time}-{self._suspicious_end_time}"
+            return f"the event time {time} was in the suspicious range {self._suspicious_start_time}-{self._suspicious_end_time}"
 
 
 def _is_time_in_range(to_check: str, start_time, end_time) -> bool:
