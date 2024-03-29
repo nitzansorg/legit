@@ -14,7 +14,7 @@ class PushTimeDetector(IDetector):
     def detect(self, event_data: Dict) -> Optional[str]:
         push_time = event_data["repository"]["updated_at"]
         if is_time_in_range(push_time, self._suspicious_start_time, self._suspicious_end_time):
-            return f"the push time {push_time} was in the suspicious range {self._suspicious_start_time}-{self._suspicious_end_time}"
+            return f"the push time '{push_time}' was in the suspicious range '{self._suspicious_start_time}-{self._suspicious_end_time}'"
 
 
 

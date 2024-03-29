@@ -5,7 +5,7 @@ from detectors.push_time_detector import PushTimeDetector
 
 app = Flask(__name__)
 
-EVENT_TO_DETECTORS = {"push": [PushTimeDetector()], "teams": [TeamNameDetector()]}
+EVENT_TO_DETECTORS = {"push": [PushTimeDetector()], "team": [TeamNameDetector()]}
 
 
 @app.route('/', methods=["post"])

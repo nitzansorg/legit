@@ -8,6 +8,8 @@ class TeamNameDetector(IDetector):
         self._prefix = prefix
 
     def detect(self, event_data: Dict) -> Optional[str]:
-        team_name: str = event_data["name"]
+        if event_data["action"] != "created":
+            return  # we are only interested in the creation of groups with suspicious names
+        team_name: str = event_data["team"]["name"]
         if team_name.startswith(self._prefix):
-            return f"the team name {team_name} starts with the suspicious prefix {self._prefix}"
+            return f"the team name '{team_name}' starts with the suspicious prefix '{self._prefix}'"
