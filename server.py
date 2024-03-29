@@ -11,6 +11,7 @@ EVENT_TO_DETECTORS = {"push": [TimeDetector()]}
 def handle_webhook():
     event_type = request.headers["X-GitHub-Event"]
     event_data = request.json
+    print(event_data)
     for detector in EVENT_TO_DETECTORS[event_type]:
         alert = detector.detect(event_data)
         if alert:
