@@ -15,6 +15,7 @@ class GithubDetectionServer(Flask):
     def _handle_webhook(self):
         event_type = request.headers["X-GitHub-Event"]
         event_data = request.json
+        print(event_type, event_data)
         for detector in self._event_to_detector.get(event_type, []):
             alert = detector.detect(event_data)
             if alert:
