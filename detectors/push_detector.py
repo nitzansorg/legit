@@ -3,8 +3,8 @@ from typing import Optional, Dict
 
 from detectors.detector import IDetector
 
-GITHUB_TIME_FORMAT = ""
-BASIC_TIME_FORMAT = ""
+GITHUB_TIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
+BASIC_TIME_FORMAT = "%H:%M:%S"
 
 
 class TimeDetector(IDetector):
