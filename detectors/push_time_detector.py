@@ -1,7 +1,7 @@
 from typing import Optional, Dict
 
 from detectors.detector import IDetector
-from utils import is_time_in_range
+from time import is_time_in_range
 
 
 class PushTimeDetector(IDetector):

@@ -1,11 +1,13 @@
 from flask import Flask, request, make_response
 
+from detectors.repo_deletion_detector import RepoDeletionDetector
 from detectors.team_name_detector import TeamNameDetector
 from detectors.push_time_detector import PushTimeDetector
 
 app = Flask(__name__)
 
-EVENT_TO_DETECTORS = {"push": [PushTimeDetector()], "team": [TeamNameDetector()]}
+EVENT_TO_DETECTORS = {"push": [PushTimeDetector()], "team": [TeamNameDetector()],
+                      "repository": [RepoDeletionDetector()]}
 
 
 @app.route('/', methods=["post"])
