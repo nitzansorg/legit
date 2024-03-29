@@ -1,10 +1,10 @@
 from flask import Flask, request, make_response
 
-from detectors.push_detector import TimeDetector
+from detectors.time_range_detector import TimeRangeDetector
 
 app = Flask(__name__)
 
-EVENT_TO_DETECTORS = {"push": [TimeDetector()]}
+EVENT_TO_DETECTORS = {"push": [TimeRangeDetector()]}
 
 
 @app.route('/', methods=["post"])

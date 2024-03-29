@@ -7,7 +7,7 @@ GITHUB_TIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 BASIC_TIME_FORMAT = "%H:%M:%S"
 
 
-class TimeDetector(IDetector):
+class TimeRangeDetector(IDetector):
     def __init__(self, suspicious_start_time="10:00:00", suspicious_end_time="20:00:00"):
         self._suspicious_start_time = suspicious_start_time
         self._suspicious_end_time = suspicious_end_time
