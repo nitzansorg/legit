@@ -1,11 +1,11 @@
 from flask import Flask, request, make_response
 
-from detectors.prefix_detector import PrefixDetector
-from detectors.time_range_detector import TimeRangeDetector
+from detectors.team_name_detector import TeamNameDetector
+from detectors.push_time_detector import PushTimeDetector
 
 app = Flask(__name__)
 
-EVENT_TO_DETECTORS = {"push": [TimeRangeDetector()], "teams": [PrefixDetector]}
+EVENT_TO_DETECTORS = {"push": [PushTimeDetector()], "teams": [TeamNameDetector()]}
 
 
 @app.route('/', methods=["post"])
