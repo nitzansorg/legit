@@ -4,7 +4,7 @@ from detectors.team_name_detector import TeamNameDetector
 from detectors.update_time_detector import UpdateTimeDetector
 from notifiers.console_notifier import ConsoleNotifier
 
-EVENT_TO_DETECTORS = {"push": [UpdateTimeDetector()],  # push is update
+EVENT_TO_DETECTORS = {"push": [UpdateTimeDetector()],  # for a push event the update time is the push time
                       "team": [TeamNameDetector()],
                       "repository": [RepoDeletionDetector()]}
 

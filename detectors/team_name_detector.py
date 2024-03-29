@@ -1,8 +1,6 @@
-from typing import Dict, Optional, List
+from typing import Dict, Optional
 
 from detectors.detector import IDetector
-from filters.action_type_filter import ActionTypeFilter
-from filters.filter import IFilter
 
 
 class TeamNameDetector(IDetector):
