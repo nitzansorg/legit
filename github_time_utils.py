@@ -4,7 +4,7 @@ GITHUB_TIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 BASIC_TIME_FORMAT = "%H:%M:%S"
 
 
-def is_time_in_range(to_check: str, start_time: str, end_time: str) -> bool:
+def is_time_in_range(to_check: int, start_time: str, end_time: str) -> bool:
     """
     checks if the given gitHub time is between the two given times
     :param to_check: a str representing a time in the gitHub format
@@ -12,7 +12,7 @@ def is_time_in_range(to_check: str, start_time: str, end_time: str) -> bool:
     :param end_time: a str representing a time in the normal format
     :return: true if the time is in the given range
     """
-    to_check = datetime.strptime(to_check, GITHUB_TIME_FORMAT).time()
+    to_check = datetime.utcfromtimestamp(to_check).time()
 
     start_time = datetime.strptime(start_time, BASIC_TIME_FORMAT).time()
     end_time = datetime.strptime(end_time, BASIC_TIME_FORMAT).time()
