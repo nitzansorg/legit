@@ -2,7 +2,7 @@ from datetime import timedelta
 from typing import Dict, Optional
 
 from detectors.detector import IDetector
-from time import are_times_close
+from github_time_utils import are_times_close
 
 
 class RepoDeletionDetector(IDetector):
