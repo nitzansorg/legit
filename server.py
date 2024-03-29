@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, make_response
 
 from detectors.push_detector import TimeDetector
 
@@ -15,6 +15,9 @@ def handle_webhook():
         alert = detector.detect(event_data)
         if alert:
             print(f"event of type {event_type} was detected as suspicious, because {alert}")
+
+    response = make_response('finished handling webhook', 200)
+    return response
 
 
 if __name__ == '__main__':
