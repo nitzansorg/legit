@@ -18,6 +18,7 @@ class GithubDetectionServer(Flask):
         for detector in self._event_to_detector.get(event_type, []):
             alert = detector.detect(event_data)
             if alert:
+                print(alert)
                 self._notifier.notify(f"event of type {event_type} was detected as suspicious, because {alert}")
 
         response = make_response('finished handling webhook', 200)
