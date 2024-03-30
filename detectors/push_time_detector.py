@@ -13,7 +13,7 @@ class PushTimeDetector(IDetector):
     (considering only the time of day, not including the day itself)
     """
     def __init__(self,
-                 suspicious_start_time: str = "15:00:00",
+                 suspicious_start_time: str = "14:00:00",
                  suspicious_end_time: str = "16:00:00"):
         """
         :param suspicious_start_time: the start of the suspicious time range in UTC
