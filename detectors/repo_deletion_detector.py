@@ -2,7 +2,7 @@ from datetime import timedelta
 from typing import Dict, Optional
 
 from detectors.detector import IDetector
-from github_time_utils import are_times_close
+from github_time_utils import are_times_close, convert_github_time
 
 
 class RepoDeletionDetector(IDetector):
@@ -15,8 +15,8 @@ class RepoDeletionDetector(IDetector):
     def detect(self, event_data: Dict) -> Optional[str]:
         if event_data["action"] != "deleted":
             return  # this detector detects suspicious deletion only
-        creation_time = event_data["repository"]["created_at"]
-        deletion_time = event_data["repository"]["updated_at"]
+        creation_time = convert_github_time(event_data["repository"]["created_at"])
+        deletion_time = convert_github_time(event_data["repository"]["updated_at"])
         if are_times_close(creation_time, deletion_time, self._close_delta):
             repo_name = event_data["repository"]["name"]
             return (f"the deletion of repository '{repo_name}' happened in the suspicious time delta "
