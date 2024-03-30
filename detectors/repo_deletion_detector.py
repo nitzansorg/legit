@@ -24,7 +24,7 @@ class RepoDeletionDetector(IDetector):
             raise ValueError("missing creation or deletion time")
         creation_time = convert_github_time(creation_time)
         deletion_time = convert_github_time(deletion_time)
-        if (deletion_time - creation_time) < self._close_delta:
+        if (deletion_time - creation_time) <= self._close_delta:
             repo_name = repo_data.get("name")
             return (f"the deletion of repository '{repo_name}' happened in the suspicious time delta "
                     f"'{self._close_delta}' after the creation of the repo")

@@ -9,10 +9,10 @@ from notifiers.console_notifier import ConsoleNotifier
 logging.basicConfig(filename='app.log', level=logging.INFO)
 
 SIGNATURE = "this_is_signed"
-EVENT_TO_DETECTORS = {"push": PushTimeDetector(),
-                      "team": TeamNameDetector(),
-                      "repository": RepoDeletionDetector()}
+EVENT_TO_DETECTOR = {"push": PushTimeDetector(),
+                     "team": TeamNameDetector(),
+                     "repository": RepoDeletionDetector()}
 
 if __name__ == '__main__':
-    app = GithubDetectionServer(SIGNATURE, ConsoleNotifier(), EVENT_TO_DETECTORS)
+    app = GithubDetectionServer(SIGNATURE, ConsoleNotifier(), EVENT_TO_DETECTOR)
     app.run(debug=True)

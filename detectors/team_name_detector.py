@@ -16,4 +16,5 @@ class TeamNameDetector(IDetector):
         if not action_type or not team_name:
             raise ValueError("missing one of the parameters: action_type, team_name")
         if action_type == "created" and team_name.startswith(self._prefix):
-            return f"the team name '{team_name}' starts with the suspicious prefix '{self._prefix}'"
+            return (f"a team was created with the name '{team_name}' that starts with the suspicious prefix "
+                    f"'{self._prefix}'")
