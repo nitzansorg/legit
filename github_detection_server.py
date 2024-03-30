@@ -20,6 +20,8 @@ class GithubDetectionServer(Flask):
     def _handle_webhook(self):
         signature = request.headers.get("x-hub-signature-256")
         if not is_signature_verified(request.data, self._token, signature):
+            self.logger.warning(f"received an unverified request.\n"
+                                f"request: {request}")
             return make_response('unauthorized to make requests', 403)
 
         event_type = request.headers.get("X-GitHub-Event")
@@ -28,6 +30,9 @@ class GithubDetectionServer(Flask):
         if detector:
             suspect_reason = detector.detect(event_data)
             if suspect_reason:
+                self.logger.info(f"detected a suspicious behaviour.\n"
+                                 f"detector: {detector}\n"
+                                 f"request: {request}")
                 self._notifier.notify(Notification(event_type, suspect_reason))
 
         return make_response('finished handling webhook', 200)
