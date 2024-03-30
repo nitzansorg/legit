@@ -9,7 +9,7 @@ class GithubDetectionServer(Flask):
     """
     A basic http-server that receives gitHub webhooks and runs detectors for suspicious behaviour on their content
     """
-    def __init__(self, notifier: INotifier, event_to_detector: Dict[str, List[IDetector]]):
+    def __init__(self, notifier: INotifier, event_to_detector: Dict[str, IDetector]):
         super().__init__(import_name=GithubDetectionServer.__name__)
         self._event_to_detector = event_to_detector
         self._notifier = notifier
@@ -18,7 +18,8 @@ class GithubDetectionServer(Flask):
     def _handle_webhook(self):
         event_type = request.headers["X-GitHub-Event"]
         event_data = request.json
-        for detector in self._event_to_detector.get(event_type, []):
+        detector = self._event_to_detector.get(event_type)
+        if detector:
             suspect_reason = detector.detect(event_data)
             if suspect_reason:
                 self._notifier.notify(Notification(event_type, suspect_reason))
