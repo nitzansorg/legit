@@ -10,7 +10,7 @@ class PushTimeDetector(IDetector):
     detects a suspicious repo update by the time range it happened at
     """
     def __init__(self,
-                 suspicious_start_time: str = "10:00:00",
+                 suspicious_start_time: str = "6:00:00",
                  suspicious_end_time: str = "23:00:00"):
         self._suspicious_start_time: str = suspicious_start_time
         self._suspicious_end_time: str = suspicious_end_time
