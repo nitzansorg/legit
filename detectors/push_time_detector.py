@@ -23,7 +23,10 @@ class PushTimeDetector(IDetector):
         self._suspicious_end_time: datetime.time = datetime.strptime(suspicious_end_time, BASIC_TIME_FORMAT).time()
 
     def detect(self, event_data: Dict) -> Optional[str]:
-        push_time = convert_github_time(event_data["repository"]["pushed_at"])
+        push_time = event_data.get("repository", {}).get("pushed_a")
+        if not push_time:
+            raise ValueError("missing the push time")
+        push_time = convert_github_time(push_time)
         if self._suspicious_start_time <= push_time.time() <= self._suspicious_end_time:
             return (f"the push time '{push_time}' was in the suspicious range "
                     f"'{self._suspicious_start_time}-{self._suspicious_end_time}'")

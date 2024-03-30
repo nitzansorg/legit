@@ -28,7 +28,14 @@ class GithubDetectionServer(Flask):
         event_data = request.json
         detector = self._event_to_detector.get(event_type)
         if detector:
-            suspect_reason = detector.detect(event_data)
+            try:
+                suspect_reason = detector.detect(event_data)
+            except ValueError as e:
+                self.logger.warning(f"found missing parameters - the request didn't go through detection.\n"
+                                    f"request: {request}\n"
+                                    f"detector: {detector}\n"
+                                    f"error: {e}")
+                return make_response("couldn't handle the request do to missing parameters", 400)
             if suspect_reason:
                 self.logger.info(f"detected a suspicious behaviour.\n"
                                  f"detector: {detector}\n"
