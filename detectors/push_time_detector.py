@@ -10,6 +10,7 @@ BASIC_TIME_FORMAT = "%H:%M:%S"
 class PushTimeDetector(IDetector):
     """
     detects a suspicious push by the time range it happened at
+    (considering only the time of day, not including the day itself)
     """
     def __init__(self,
                  suspicious_start_time: str = "6:00:00",
@@ -18,12 +19,12 @@ class PushTimeDetector(IDetector):
         :param suspicious_start_time: the start of the suspicious time range in UTC
         :param suspicious_end_time: the end of the suspicious time range in UTC
         """
-        self._suspicious_start_time: datetime = datetime.strptime(suspicious_start_time, BASIC_TIME_FORMAT)
-        self._suspicious_end_time: datetime = datetime.strptime(suspicious_end_time, BASIC_TIME_FORMAT)
+        self._suspicious_start_time: datetime.time = datetime.strptime(suspicious_start_time, BASIC_TIME_FORMAT).time()
+        self._suspicious_end_time: datetime.time = datetime.strptime(suspicious_end_time, BASIC_TIME_FORMAT).time()
 
     def detect(self, event_data: Dict) -> Optional[str]:
         push_time = convert_github_time(event_data["repository"]["pushed_at"])
-        if self._suspicious_start_time.time() <= push_time.time() <= self._suspicious_end_time.time():
+        if self._suspicious_start_time <= push_time.time() <= self._suspicious_end_time:
             return (f"the push time '{push_time}' was in the suspicious range "
                     f"'{self._suspicious_start_time}-{self._suspicious_end_time}'")
 
