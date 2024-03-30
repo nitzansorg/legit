@@ -4,10 +4,11 @@ from detectors.team_name_detector import TeamNameDetector
 from detectors.push_time_detector import PushTimeDetector
 from notifiers.console_notifier import ConsoleNotifier
 
+SIGNATURE = "this_is_signed"
 EVENT_TO_DETECTORS = {"push": PushTimeDetector(),
                       "team": TeamNameDetector(),
                       "repository": RepoDeletionDetector()}
 
 if __name__ == '__main__':
-    app = GithubDetectionServer(ConsoleNotifier(), EVENT_TO_DETECTORS)
+    app = GithubDetectionServer(SIGNATURE, ConsoleNotifier(), EVENT_TO_DETECTORS)
     app.run(debug=True)
